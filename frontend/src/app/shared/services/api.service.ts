@@ -74,4 +74,16 @@ export class ApiService {
       responseType: 'blob',
     });
   }
+  // ── Scans (QR Attendance) ──
+  getScanToken(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/scans/token`, { headers: this.getHeaders() });
+  }
+
+  getScanEmployees(token: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/scans/employees`, { params: { token } });
+  }
+
+  recordScan(data: { employeeId: string; type: 'IN' | 'OUT'; token: string; lat?: number; lon?: number }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/scans`, data);
+  }
 }

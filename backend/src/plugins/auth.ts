@@ -7,6 +7,7 @@ declare module 'fastify' {
   interface FastifyInstance {
     supabase: SupabaseClient;
     supabaseAdmin: SupabaseClient;
+    authenticate: any;
   }
   interface FastifyRequest {
     userId: string;
@@ -34,6 +35,9 @@ const authPlugin: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   // Request decorators
   fastify.decorateRequest('userId', '');
   fastify.decorateRequest('userEmail', '');
+
+  // Add authenticate to fastify instance for route hooks
+  fastify.decorate('authenticate', authenticate);
 };
 
 /**

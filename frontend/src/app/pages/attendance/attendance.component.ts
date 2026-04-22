@@ -42,12 +42,40 @@ const MONTHS = ['','January','February','March','April','May','June','July','Aug
             }
           </mat-select>
         </mat-form-field>
+        <button mat-stroked-button (click)="openQR()" class="qr-btn">
+          <mat-icon>qr_code_2</mat-icon> Show QR
+        </button>
         <button mat-raised-button color="primary" (click)="saveAll()" [disabled]="saving()" class="save-btn" id="save-attendance-btn">
           <mat-icon>save</mat-icon>
           @if (saving()) { Saving... } @else { Save All }
         </button>
       </div>
     </div>
+
+    <!-- QR Dialog Overlay -->
+    @if (qrOpen()) {
+      <div class="dialog-overlay" (click)="closeQR()"></div>
+      <div class="qr-dialog">
+        <div class="qr-header">
+          <h3>Self-Attendance QR</h3>
+          <button mat-icon-button (click)="closeQR()"><mat-icon>close</mat-icon></button>
+        </div>
+        <div class="qr-body">
+          <p class="qr-hint">Scan this QR to mark check-in/out. Valid for today only.</p>
+          <div class="qr-image-wrapper">
+            <img [src]="qrUrl()" alt="Attendance QR Code" *ngIf="qrUrl()">
+            <mat-spinner diameter="40" *ngIf="!qrUrl()"></mat-spinner>
+          </div>
+          <p class="qr-date">{{ today | date:'fullDate' }}</p>
+          <div class="qr-security">
+            <mat-icon>verified_user</mat-icon> Secure token active
+          </div>
+        </div>
+        <div class="qr-footer">
+          <button mat-flat-button color="primary" (click)="copyLink()">Copy Link</button>
+        </div>
+      </div>
+    }
 
     @if (loading()) {
       <div class="loading-state"><mat-spinner diameter="40"></mat-spinner></div>
@@ -172,7 +200,19 @@ const MONTHS = ['','January','February','March','April','May','June','July','Aug
     .add-bonus-btn { font-size:0.75rem !important; padding:2px 8px !important; min-width:auto !important; height:28px !important; }
     .loading-state { display:flex; justify-content:center; padding:60px; }
     .dialog-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:200; }
-    .bonus-dialog { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:24px; border-radius:16px; z-index:201; width:380px; max-width:90vw; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
+    .bonus-dialog, .qr-dialog { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:24px; border-radius:16px; z-index:201; width:380px; max-width:90vw; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
+    .qr-dialog { width: 340px; padding: 0; overflow: hidden; }
+    .qr-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; }
+    .qr-header h3 { margin: 0; font-size: 1.1rem; }
+    .qr-body { padding: 24px; text-align: center; }
+    .qr-hint { font-size: 0.85rem; color: #64748b; margin-bottom: 20px; }
+    .qr-image-wrapper { background: white; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px; display: inline-block; margin-bottom: 16px; }
+    .qr-image-wrapper img { width: 200px; height: 200px; display: block; }
+    .qr-date { font-size: 0.9rem; font-weight: 600; color: #1e293b; margin: 8px 0; }
+    .qr-security { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 0.75rem; color: #2E7D32; font-weight: 700; text-transform: uppercase; }
+    .qr-security mat-icon { font-size: 14px; width: 14px; height: 14px; }
+    .qr-footer { padding: 16px; background: #f8fafc; border-top: 1px solid #f1f5f9; display: flex; justify-content: center; }
+    .qr-btn { height: 44px; border-radius: 12px !important; margin-right: 8px; }
     .bonus-dialog h3 { margin:0 0 16px; }
     .dialog-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:8px; }
     .full-width { width:100%; }
@@ -191,6 +231,10 @@ export class AttendanceComponent implements OnInit {
   selectedMonth = 4;
   monthName = 'April';
   year = signal(2026);
+  today = new Date();
+  qrOpen = signal(false);
+  qrUrl = signal('');
+  fullCheckinUrl = '';
   displayedColumns = ['name','presentDays','paidLeaveDays','unpaidLeaveDays','overtimeHours','bonus'];
   monthOptions = Array.from({length:12}, (_,i) => ({ value:i+1, label:MONTHS[i+1] }));
 
@@ -257,5 +301,31 @@ export class AttendanceComponent implements OnInit {
     this.api.deleteBonus(id).subscribe({
       next: () => { this.loadData(); this.snackBar.open('Bonus removed', 'OK', { duration: 2000 }); },
     });
+  }
+
+  openQR() {
+    this.qrOpen.set(true);
+    this.qrUrl.set('');
+    this.api.getScanToken().subscribe({
+      next: (res) => {
+        const baseUrl = window.location.origin;
+        this.fullCheckinUrl = `${baseUrl}/check-in?token=${res.token}`;
+        // Generate QR code using external API
+        this.qrUrl.set(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(this.fullCheckinUrl)}`);
+      },
+      error: () => {
+        this.snackBar.open('Failed to generate secure token', 'OK', { duration: 3000 });
+        this.closeQR();
+      }
+    });
+  }
+
+  closeQR() {
+    this.qrOpen.set(false);
+  }
+
+  copyLink() {
+    navigator.clipboard.writeText(this.fullCheckinUrl);
+    this.snackBar.open('Link copied to clipboard!', 'OK', { duration: 2000 });
   }
 }

@@ -51,8 +51,23 @@ model Employee {
   attendance   AttendanceLog[]
   bonuses      BonusEvent[]
   payslips     Payslip[]
+  scans        AttendanceScan[]
 
   @@map("employees")
+}
+
+model AttendanceScan {
+  id         String   @id @default(uuid()) @db.Uuid
+  employeeId String   @db.Uuid
+  scanTime   DateTime @default(now())
+  type       String   // "IN" or "OUT"
+  latitude   Float?
+  longitude  Float?
+  ipAddress  String?
+
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("attendance_scans")
 }
 
 // ─── Attendance Log ─────────────────────────────────────────────────────────

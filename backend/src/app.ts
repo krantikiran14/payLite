@@ -9,6 +9,7 @@ import employeeRoutes from './routes/employees';
 import attendanceRoutes from './routes/attendance';
 import bonusRoutes from './routes/bonuses';
 import payrollRoutes from './routes/payroll';
+import scanRoutes from './routes/scans';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
@@ -35,6 +36,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await app.register(attendanceRoutes);
   await app.register(bonusRoutes);
   await app.register(payrollRoutes);
+  await app.register(scanRoutes);
 
   // ── Health check ──
   app.get('/health', async () => ({ status: 'ok', timestamp: new Date().toISOString() }));
