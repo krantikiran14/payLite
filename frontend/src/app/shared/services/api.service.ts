@@ -17,6 +17,15 @@ export class ApiService {
     });
   }
 
+  // ── Company / Auth Profile ──
+  getProfile(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/auth/profile`, { headers: this.getHeaders() });
+  }
+
+  updateProfile(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/auth/profile`, data, { headers: this.getHeaders() });
+  }
+
   // ── Employees ──
   getEmployees(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/employees`, { headers: this.getHeaders() });

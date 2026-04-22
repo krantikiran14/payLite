@@ -27,13 +27,55 @@ import { ApiService } from '../../shared/services/api.service';
   template: `
     <div class="page-header">
       <div>
-        <h1 class="page-title">Employees</h1>
-        <p class="page-subtitle">Manage your team members</p>
+        <h1 class="page-title">Employees & Settings</h1>
+        <p class="page-subtitle">Manage your team and company office location</p>
       </div>
-      <button mat-raised-button color="primary" (click)="openDrawer()" class="add-btn" id="add-employee-btn">
-        <mat-icon>person_add</mat-icon> Add Employee
-      </button>
+      <div class="header-actions">
+        <button mat-stroked-button (click)="toggleSettings()" class="settings-btn">
+          <mat-icon>{{ showSettings() ? 'expand_less' : 'settings' }}</mat-icon> 
+          {{ showSettings() ? 'Hide Settings' : 'Company Settings' }}
+        </button>
+        <button mat-raised-button color="primary" (click)="openDrawer()" class="add-btn" id="add-employee-btn">
+          <mat-icon>person_add</mat-icon> Add Employee
+        </button>
+      </div>
     </div>
+
+    @if (showSettings()) {
+      <mat-card class="settings-card">
+        <mat-card-header>
+          <mat-card-title>Office Geofencing</mat-card-title>
+          <mat-card-subtitle>Set your office location to restrict attendance scans to the premises</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="settings-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>Company Name</mat-label>
+              <input matInput [(ngModel)]="profile.companyName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Office Latitude</mat-label>
+              <input matInput type="number" [(ngModel)]="profile.officeLat">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Office Longitude</mat-label>
+              <input matInput type="number" [(ngModel)]="profile.officeLon">
+            </mat-form-field>
+            <div class="settings-actions">
+              <button mat-stroked-button color="accent" (click)="detectLocation()" [disabled]="detecting()">
+                <mat-icon>my_location</mat-icon> Detect My Location
+              </button>
+              <button mat-flat-button color="primary" (click)="saveSettings()" [disabled]="savingSettings()">
+                <mat-icon>save</mat-icon> Save Settings
+              </button>
+            </div>
+          </div>
+          <p class="settings-hint" *ngIf="profile.officeLat">
+            <mat-icon>info</mat-icon> Geofencing is active. Employees must be within 200m of these coordinates.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    }
 
     @if (loading()) {
       <div class="loading-state"><mat-spinner diameter="40"></mat-spinner></div>
@@ -162,9 +204,19 @@ import { ApiService } from '../../shared/services/api.service';
   `,
   styles: [`
     .page-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:24px; flex-wrap:wrap; gap:16px; }
+    .header-actions { display: flex; gap: 12px; }
     .page-title { font-size:1.75rem; font-weight:700; color:#1e293b; margin:0; }
     .page-subtitle { color:#64748b; margin:4px 0 0; }
-    .add-btn { border-radius:12px !important; padding:0 24px !important; height:44px; color: white !important; }
+    .settings-btn { border-radius: 12px !important; height: 44px; }
+    .add-btn { height:44px; border-radius:12px !important; color: white !important; }
+    
+    .settings-card { border-radius: 16px !important; margin-bottom: 24px; border: 1px solid #e2e8f0; box-shadow: none !important; }
+    .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; align-items: center; margin-top: 16px; }
+    .settings-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .settings-actions button { border-radius: 10px !important; height: 44px; }
+    .settings-hint { margin-top: 16px; display: flex; align-items: center; gap: 8px; color: #15803d; font-size: 0.85rem; font-weight: 500; }
+    .settings-hint mat-icon { font-size: 18px; width: 18px; height: 18px; }
+
     .table-card { border-radius:16px !important; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,0.08) !important; }
     .search-bar { padding:16px 16px 0; }
     .search-field { width:100%; }
@@ -195,6 +247,10 @@ export class EmployeesComponent implements OnInit {
   employees = signal<any[]>([]);
   filteredEmployees = signal<any[]>([]);
   loading = signal(true);
+  showSettings = signal(false);
+  detecting = signal(false);
+  savingSettings = signal(false);
+  profile: any = {};
   saving = signal(false);
   drawerOpen = signal(false);
   searchQuery = '';
@@ -205,13 +261,60 @@ export class EmployeesComponent implements OnInit {
 
   constructor(private api: ApiService, private snackBar: MatSnackBar) {}
 
-  ngOnInit() { this.loadEmployees(); }
+  ngOnInit() {
+    this.loadData();
+    this.loadProfile();
+  }
 
-  loadEmployees() {
+  loadData() {
     this.loading.set(true);
     this.api.getEmployees().subscribe({
-      next: (data) => { this.employees.set(data); this.filterEmployees(); this.loading.set(false); },
-      error: () => { this.loading.set(false); },
+      next: (data) => {
+        this.employees.set(data);
+        this.filterEmployees();
+        this.loading.set(false);
+      },
+      error: () => this.loading.set(false),
+    });
+  }
+
+  loadProfile() {
+    this.api.getProfile().subscribe(res => this.profile = res);
+  }
+
+  toggleSettings() {
+    this.showSettings.update(v => !v);
+  }
+
+  detectLocation() {
+    this.detecting.set(true);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          this.profile.officeLat = pos.coords.latitude;
+          this.profile.officeLon = pos.coords.longitude;
+          this.detecting.set(false);
+          this.snackBar.open('Location detected!', 'OK', { duration: 2000 });
+        },
+        () => {
+          this.detecting.set(false);
+          this.snackBar.open('Failed to detect location. Please enter manually.', 'OK', { duration: 3000 });
+        }
+      );
+    }
+  }
+
+  saveSettings() {
+    this.savingSettings.set(true);
+    this.api.updateProfile(this.profile).subscribe({
+      next: () => {
+        this.savingSettings.set(false);
+        this.snackBar.open('Settings saved successfully!', 'OK', { duration: 3000 });
+      },
+      error: () => {
+        this.savingSettings.set(false);
+        this.snackBar.open('Failed to save settings.', 'OK', { duration: 3000 });
+      }
     });
   }
 
@@ -258,7 +361,7 @@ export class EmployeesComponent implements OnInit {
       next: () => {
         this.snackBar.open(this.editingEmployee ? 'Employee updated' : 'Employee added', 'OK', { duration: 3000 });
         this.closeDrawer();
-        this.loadEmployees();
+        this.loadData();
         this.saving.set(false);
       },
       error: (err) => {

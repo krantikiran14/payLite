@@ -18,6 +18,8 @@ model User {
   email       String   @unique
   name        String
   companyName String   @default("My Company")
+  officeLat   Float?
+  officeLon   Float?
   createdAt   DateTime @default(now())
 
   employees   Employee[]
@@ -64,6 +66,7 @@ model AttendanceScan {
   latitude   Float?
   longitude  Float?
   ipAddress  String?
+  userAgent  String?
 
   employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 

@@ -48,14 +48,26 @@ const authRoutes: FastifyPluginAsync = async (fastify: FastifyInstance) => {
     });
   });
 
-  // POST /auth/logout — Sign out
-  fastify.post('/auth/logout', async (request, reply) => {
-    const authHeader = request.headers.authorization;
-    if (authHeader) {
-      // We just acknowledge the logout; Supabase handles token invalidation client-side
-      await fastify.supabase.auth.signOut();
-    }
-    return reply.send({ message: 'Logged out successfully' });
+  // GET /auth/profile — Get company settings
+  fastify.get('/auth/profile', { preHandler: [fastify.authenticate] }, async (request, reply) => {
+    const userId = (request as any).userId;
+    const user = await fastify.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, name: true, email: true, companyName: true, officeLat: true, officeLon: true }
+    });
+    return reply.send(user);
+  });
+
+  // PUT /auth/profile — Update company settings
+  fastify.post('/auth/profile', { preHandler: [fastify.authenticate] }, async (request, reply) => {
+    const userId = (request as any).userId;
+    const body = request.body as { companyName?: string; name?: string; officeLat?: number; officeLon?: number };
+    
+    const updated = await fastify.prisma.user.update({
+      where: { id: userId },
+      data: body,
+    });
+    return reply.send(updated);
   });
 };
 
