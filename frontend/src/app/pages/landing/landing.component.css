@@ -1,0 +1,345 @@
+app-landing {
+  --blue:#185FA5;
+  --blue-deep:#0C447C;
+  --navy:#042C53;
+  --sky:#E6F1FB;
+  --sky-2:#85B7EB;
+  --cloud:#F4F8FD;
+  --ink:#2C2C2A;
+  --ink-mid:#5F5E5A;
+  --border:#E0DED6;
+  --green:#3B6D11;
+  --green-tint:#EAF3DE;
+  --amber:#854F0B;
+  --amber-tint:#FAEEDA;
+  --red:#A32D2D;
+  --red-tint:#FCEBEB;
+  --white:#FFFFFF;
+  --shadow-sm:0 1px 2px rgba(4,44,83,.04),0 1px 1px rgba(4,44,83,.03);
+  --shadow-md:0 8px 24px -8px rgba(4,44,83,.12),0 2px 6px rgba(4,44,83,.05);
+  --shadow-lg:0 24px 48px -16px rgba(4,44,83,.18),0 8px 16px -8px rgba(4,44,83,.08);
+  --radius-sm:8px;
+  --radius:12px;
+  --radius-lg:16px;
+  --radius-xl:20px;
+  display:block;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-weight:400;
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+app-landing *{box-sizing:border-box;margin:0;padding:0}
+app-landing a{color:inherit;text-decoration:none;cursor:pointer}
+app-landing button{font-family:inherit;cursor:pointer;border:none;background:none}
+app-landing ul{list-style:none}
+
+/* Layout */
+app-landing .container{max-width:1200px;margin:0 auto;padding:0 24px}
+app-landing .section{padding:96px 0}
+app-landing .section-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:16px}
+app-landing h2{font-size:44px;line-height:1.08;font-weight:700;letter-spacing:-0.02em;color:var(--ink)}
+app-landing h3{font-size:22px;line-height:1.25;font-weight:700;letter-spacing:-0.02em;color:var(--ink)}
+app-landing p{color:var(--ink-mid)}
+
+/* Reveal */
+app-landing .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease-out,transform .5s ease-out}
+app-landing .reveal.in{opacity:1;transform:none}
+app-landing .reveal[data-stagger="1"]{transition-delay:.1s}
+app-landing .reveal[data-stagger="2"]{transition-delay:.2s}
+app-landing .reveal[data-stagger="3"]{transition-delay:.3s}
+app-landing .reveal[data-stagger="4"]{transition-delay:.4s}
+app-landing .reveal[data-stagger="5"]{transition-delay:.5s}
+
+/* Buttons */
+app-landing .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;font-size:15px;font-weight:600;border-radius:10px;transition:all .15s ease;white-space:nowrap;border:1px solid transparent}
+app-landing .btn-primary{background:var(--blue);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.15) inset,0 4px 12px -4px rgba(24,95,165,.5)}
+app-landing .btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:0 8px 18px -6px rgba(24,95,165,.55)}
+app-landing .btn-primary:active{transform:translateY(0)}
+app-landing .btn-ghost{background:transparent;color:var(--ink)}
+app-landing .btn-ghost:hover{background:var(--sky);color:var(--blue)}
+app-landing .btn-outline{background:transparent;color:var(--blue);border:1px solid var(--border)}
+app-landing .btn-outline:hover{border-color:var(--blue);background:var(--cloud);transform:translateY(-1px)}
+app-landing .btn-white{background:#fff;color:var(--navy)}
+app-landing .btn-white:hover{background:var(--cloud);transform:translateY(-1px)}
+app-landing .btn-white-outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+app-landing .btn-white-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-1px)}
+app-landing .btn-lg{padding:14px 24px;font-size:16px;border-radius:12px}
+app-landing .btn-link{color:var(--blue);font-weight:600;font-size:15px;cursor:pointer}
+app-landing .btn-link:hover{text-decoration:underline}
+
+/* Logo */
+app-landing .logo{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:-0.02em}
+app-landing .logo-mark{width:30px;height:30px;border-radius:8px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+app-landing .logo-text .pay{color:var(--ink)}
+app-landing .logo-text .lite{color:var(--blue)}
+
+/* Nav */
+app-landing .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s ease,box-shadow .2s ease}
+app-landing .nav.scrolled{border-bottom-color:var(--border);box-shadow:0 1px 0 rgba(0,0,0,.02)}
+app-landing .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+app-landing .nav-links{display:flex;gap:6px;align-items:center}
+app-landing .nav-links a{font-size:14px;font-weight:500;color:var(--ink-mid);padding:8px 12px;border-radius:8px;transition:color .15s ease,background .15s ease;cursor:pointer}
+app-landing .nav-links a:hover{color:var(--ink);background:var(--cloud)}
+app-landing .nav-cta{display:flex;gap:8px;align-items:center}
+app-landing .nav-cta .btn{padding:9px 16px;font-size:14px}
+app-landing .hamburger{display:none;width:40px;height:40px;border-radius:8px;align-items:center;justify-content:center}
+app-landing .hamburger:hover{background:var(--cloud)}
+app-landing .hamburger span{display:block;width:18px;height:2px;background:var(--ink);position:relative;transition:transform .2s}
+app-landing .hamburger span::before,app-landing .hamburger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--ink);transition:transform .2s}
+app-landing .hamburger span::before{top:-6px}
+app-landing .hamburger span::after{top:6px}
+app-landing .hamburger.open span{background:transparent}
+app-landing .hamburger.open span::before{top:0;transform:rotate(45deg)}
+app-landing .hamburger.open span::after{top:0;transform:rotate(-45deg)}
+app-landing .mobile-menu{display:none;border-top:1px solid var(--border);background:#fff;padding:16px 24px 24px}
+app-landing .mobile-menu a{display:block;padding:12px 4px;font-size:16px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--border);cursor:pointer}
+app-landing .mobile-menu .mobile-cta{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+app-landing .mobile-menu .mobile-cta .btn{width:100%;justify-content:center}
+app-landing .nav.menu-open .mobile-menu{display:block}
+
+/* Hero */
+app-landing .hero{background:var(--cloud);padding:80px 0 110px;text-align:center;position:relative;overflow:hidden}
+app-landing .hero::before{content:"";position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(24,95,165,.06),transparent 60%);pointer-events:none}
+app-landing .hero-inner{position:relative;z-index:1}
+app-landing .pill{display:inline-flex;align-items:center;gap:6px;background:var(--sky);color:var(--blue);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:28px}
+app-landing .pill .spark{color:var(--blue);font-weight:600}
+app-landing .h1{font-size:64px;line-height:1.04;font-weight:700;letter-spacing:-0.03em;color:var(--ink);margin-bottom:24px}
+app-landing .h1 .blue{color:var(--blue)}
+app-landing .hero-sub{font-size:18px;color:var(--ink-mid);max-width:520px;margin:0 auto 36px;line-height:1.55}
+app-landing .cta-row{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:32px}
+app-landing .social-bar{display:flex;gap:24px;justify-content:center;align-items:center;font-size:14px;color:var(--ink-mid);font-weight:500;flex-wrap:wrap}
+app-landing .social-bar .dot{width:3px;height:3px;border-radius:50%;background:var(--border)}
+
+/* Phone mockup */
+app-landing .mockup-wrap{margin-top:72px;display:flex;justify-content:center;perspective:1400px}
+app-landing .phone{width:340px;background:#fff;border-radius:32px;border:1px solid var(--border);padding:18px;box-shadow:var(--shadow-lg);transform:rotate(-1.5deg);position:relative}
+app-landing .phone::before{content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);width:80px;height:6px;border-radius:4px;background:#e8eaee}
+app-landing .phone-screen{background:var(--cloud);border-radius:18px;padding:18px 16px 16px;margin-top:18px}
+app-landing .phone-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+app-landing .phone-header h4{font-size:15px;font-weight:600;color:var(--ink)}
+app-landing .phone-header span{font-size:11px;color:var(--ink-mid);font-weight:500;display:block;margin-top:2px}
+app-landing .phone-header .dots{display:flex;gap:3px}
+app-landing .phone-header .dots i{width:4px;height:4px;border-radius:50%;background:#cdd2dc;display:block}
+app-landing .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+app-landing .metric{background:#fff;border-radius:10px;padding:10px;border:1px solid var(--border)}
+app-landing .metric .label{font-size:9px;color:var(--ink-mid);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+app-landing .metric .value{font-size:15px;font-weight:700;color:var(--ink);margin-top:3px}
+app-landing .metric.ok .value{color:var(--green)}
+app-landing .metric.warn .value{color:var(--amber)}
+app-landing .metric.flag .value{color:var(--red)}
+app-landing .emp-list{background:#fff;border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px}
+app-landing .emp{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid var(--border)}
+app-landing .emp:last-child{border-bottom:0}
+app-landing .emp .av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;flex-shrink:0}
+app-landing .emp .info{flex:1;min-width:0}
+app-landing .emp .name{font-size:12px;font-weight:600;color:var(--ink)}
+app-landing .emp .role{font-size:10px;color:var(--ink-mid)}
+app-landing .emp .pay{font-size:12px;font-weight:600;color:var(--ink);text-align:right}
+app-landing .emp .status{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;margin-top:2px;display:inline-block}
+app-landing .status-paid{background:var(--green-tint);color:var(--green)}
+app-landing .status-pending{background:var(--amber-tint);color:var(--amber)}
+app-landing .status-flag{background:var(--red-tint);color:var(--red)}
+app-landing .run-btn{width:100%;background:var(--blue);color:#fff;border-radius:10px;padding:11px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 6px 18px -4px rgba(24,95,165,.5)}
+
+/* Logos band */
+app-landing .logos-band{padding:64px 0;background:#fff;text-align:center}
+app-landing .logos-label{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mid);margin-bottom:28px}
+app-landing .logos-row{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+app-landing .logos-row .lg{color:#9a988f;font-size:18px;font-weight:600;letter-spacing:-0.01em;transition:color .15s}
+app-landing .logos-row .lg:hover{color:var(--ink-mid)}
+
+/* Problem/Solution */
+app-landing .ps{background:#fff}
+app-landing .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+app-landing .ps-col h2{font-size:36px;margin-bottom:28px}
+app-landing .ps-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+app-landing .ps-label.bad{color:var(--red)}
+app-landing .ps-label.good{color:var(--green)}
+app-landing .ps-list{display:flex;flex-direction:column;gap:14px}
+app-landing .ps-item{display:flex;gap:14px;align-items:flex-start;font-size:16px;color:var(--ink)}
+app-landing .ps-icon{width:24px;height:24px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+app-landing .ps-icon.bad{background:var(--red-tint);color:var(--red)}
+app-landing .ps-icon.good{background:var(--green-tint);color:var(--green)}
+
+/* Features */
+app-landing .features{background:var(--cloud)}
+app-landing .section-head{text-align:center;max-width:680px;margin:0 auto 56px}
+app-landing .section-head h2{margin-bottom:14px}
+app-landing .section-head p{font-size:18px;color:var(--ink-mid)}
+app-landing .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+app-landing .feat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+app-landing .feat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:#d4d2c8}
+app-landing .feat-icon{width:44px;height:44px;border-radius:50%;background:var(--sky);color:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+app-landing .feat-card h3{font-size:18px;margin-bottom:8px}
+app-landing .feat-card p{font-size:15px;line-height:1.55}
+
+/* How it works */
+app-landing .how{background:#fff}
+app-landing .steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;position:relative;margin-bottom:48px}
+app-landing .steps::before{content:"";position:absolute;top:54px;left:14%;right:14%;height:1px;background-image:linear-gradient(to right,var(--border) 50%,transparent 50%);background-size:10px 1px;z-index:0}
+app-landing .step{position:relative;z-index:1;text-align:left}
+app-landing .step .num{font-size:64px;font-weight:300;color:var(--sky-2);letter-spacing:-0.04em;line-height:1;margin-bottom:8px}
+app-landing .step .step-icon{width:48px;height:48px;border-radius:12px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--blue);margin-bottom:18px;box-shadow:var(--shadow-sm)}
+app-landing .step h3{font-size:20px;margin-bottom:8px}
+app-landing .step p{font-size:15px;line-height:1.55;max-width:300px}
+app-landing .how-cta{text-align:center;padding-top:24px;display:flex;flex-direction:column;gap:14px;align-items:center}
+app-landing .how-cta-text{font-size:16px;color:var(--ink-mid)}
+
+/* Industries */
+app-landing .industries{background:#fff}
+app-landing .ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+app-landing .ind-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease}
+app-landing .ind-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+app-landing .ind-accent{height:4px;background:var(--blue)}
+app-landing .ind-card.featured{box-shadow:var(--shadow-md);transform:translateY(-8px)}
+app-landing .ind-card.featured:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg)}
+app-landing .ind-card.featured .ind-accent{background:var(--blue-deep)}
+app-landing .ind-body{padding:32px 28px;display:flex;flex-direction:column;flex:1}
+app-landing .ind-icon{width:48px;height:48px;border-radius:50%;background:var(--sky);color:var(--blue);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+app-landing .badge{display:inline-flex;align-items:center;background:var(--sky);color:var(--blue);font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:12px;align-self:flex-start}
+app-landing .ind-body h3{font-size:22px;margin-bottom:14px}
+app-landing .ind-points{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;flex:1}
+app-landing .ind-points li{font-size:15px;color:var(--ink-mid);padding-left:18px;position:relative;line-height:1.5}
+app-landing .ind-points li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+app-landing .ind-link{color:var(--blue);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:4px;transition:gap .2s ease}
+app-landing .ind-link:hover{gap:8px}
+
+/* Pricing */
+app-landing .pricing{background:var(--cloud)}
+app-landing .billing-toggle{display:inline-flex;background:#fff;border:1px solid var(--border);border-radius:999px;padding:4px;position:relative}
+app-landing .billing-toggle button{padding:8px 20px;font-size:14px;font-weight:500;border-radius:999px;color:var(--ink-mid);position:relative;z-index:1;transition:color .2s ease;display:flex;align-items:center;gap:8px}
+app-landing .billing-toggle button.active{color:#fff}
+app-landing .billing-toggle .save-pill{background:var(--green-tint);color:var(--green);font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px}
+app-landing .billing-toggle button.active .save-pill{background:rgba(255,255,255,.2);color:#fff}
+app-landing .billing-toggle .slider{position:absolute;top:4px;left:4px;height:calc(100% - 8px);background:var(--blue);border-radius:999px;transition:transform .25s ease,width .25s ease}
+app-landing .toggle-row{text-align:center;margin-bottom:48px}
+app-landing .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+app-landing .price-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 32px;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease;position:relative}
+app-landing .price-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+app-landing .price-card.feat{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:var(--shadow-lg);transform:translateY(-8px)}
+app-landing .price-card.feat:hover{transform:translateY(-10px)}
+app-landing .price-card.feat *{color:#fff}
+app-landing .price-name{font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+app-landing .price-card.feat .price-name{color:var(--sky-2)}
+app-landing .price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+app-landing .price-amt{font-size:48px;font-weight:700;letter-spacing:-0.03em;color:var(--ink);line-height:1;transition:opacity .15s ease,transform .15s ease}
+app-landing .price-amt.price-flip{opacity:0;transform:translateY(-4px)}
+app-landing .price-card.feat .price-amt{color:#fff}
+app-landing .price-per{font-size:14px;color:var(--ink-mid)}
+app-landing .price-card.feat .price-per{color:var(--sky-2)}
+app-landing .price-desc{font-size:14px;color:var(--ink-mid);margin-bottom:6px}
+app-landing .price-card.feat .price-desc{color:var(--sky-2)}
+app-landing .price-limit{font-size:13px;font-weight:600;color:var(--ink);padding-top:18px;border-top:1px solid var(--border);margin-top:18px;margin-bottom:18px}
+app-landing .price-card.feat .price-limit{color:#fff;border-top-color:rgba(255,255,255,.15)}
+app-landing .price-features{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;flex:1}
+app-landing .price-feat{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-mid);line-height:1.5}
+app-landing .price-feat .check{width:18px;height:18px;border-radius:50%;background:var(--green-tint);color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:700;margin-top:1px}
+app-landing .price-feat .x{width:18px;height:18px;border-radius:50%;background:#f0eee6;color:#b6b3a8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;font-weight:700;margin-top:1px}
+app-landing .price-feat.disabled{color:#b6b3a8}
+app-landing .price-card.feat .price-feat{color:#fff}
+app-landing .price-card.feat .check{background:rgba(133,183,235,.15);color:var(--sky-2)}
+app-landing .price-pop-badge{position:absolute;top:20px;right:24px;background:var(--blue);color:#fff;font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px}
+app-landing .price-cta .btn{width:100%;justify-content:center}
+app-landing .price-foot{text-align:center;color:var(--ink-mid);font-size:14px;margin-top:32px}
+
+/* Testimonials */
+app-landing .test{background:#fff}
+app-landing .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+app-landing .test-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;position:relative;transition:transform .2s ease,box-shadow .2s ease;display:flex;flex-direction:column}
+app-landing .test-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+app-landing .test-quote-mark{position:absolute;top:18px;right:24px;font-family:Georgia,serif;font-size:64px;color:var(--blue);line-height:1;opacity:.18;font-weight:700}
+app-landing .stars{color:#F5B400;font-size:14px;letter-spacing:2px;margin-bottom:16px}
+app-landing .test-q{font-size:16px;line-height:1.55;color:var(--ink);margin-bottom:24px;flex:1}
+app-landing .test-by{display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid var(--border)}
+app-landing .test-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:14px;flex-shrink:0}
+app-landing .test-by .name{font-size:15px;font-weight:600;color:var(--ink)}
+app-landing .test-by .role{font-size:13px;color:var(--ink-mid)}
+
+/* FAQ */
+app-landing .faq{background:var(--cloud)}
+app-landing .faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+app-landing .faq-item{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .2s ease,box-shadow .2s ease;position:relative}
+app-landing .faq-item.open{border-color:#d4d2c8;box-shadow:var(--shadow-sm)}
+app-landing .faq-item.open::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue)}
+app-landing .faq-q{width:100%;text-align:left;padding:20px 56px 20px 28px;font-size:16px;font-weight:500;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:16px;position:relative}
+app-landing .faq-icon{width:24px;height:24px;flex-shrink:0;position:relative;transition:transform .25s ease;border-radius:50%}
+app-landing .faq-icon::before,app-landing .faq-icon::after{content:"";position:absolute;background:var(--ink-mid);border-radius:1px}
+app-landing .faq-icon::before{left:50%;top:5px;width:2px;height:14px;transform:translateX(-50%);transition:opacity .2s ease}
+app-landing .faq-icon::after{top:50%;left:5px;width:14px;height:2px;transform:translateY(-50%)}
+app-landing .faq-item.open .faq-icon::before{opacity:0}
+app-landing .faq-item.open .faq-icon{background:var(--blue)}
+app-landing .faq-item.open .faq-icon::after{background:#fff;left:5px;width:14px}
+app-landing .faq-a{overflow:hidden;max-height:0;transition:max-height .35s ease}
+app-landing .faq-a-inner{padding:0 28px 24px;font-size:15px;line-height:1.6;color:var(--ink-mid)}
+
+/* Final CTA */
+app-landing .final-cta{background:var(--navy);padding:96px 0;text-align:center;position:relative;overflow:hidden}
+app-landing .final-cta::before{content:"";position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse at center,rgba(133,183,235,.12),transparent 60%)}
+app-landing .final-cta-inner{position:relative;z-index:1}
+app-landing .final-cta h2{font-size:48px;color:#fff;margin-bottom:18px;letter-spacing:-0.03em}
+app-landing .final-cta p.sub{font-size:18px;color:var(--sky-2);max-width:560px;margin:0 auto 36px}
+app-landing .final-cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+app-landing .final-cta-fine{font-size:13px;color:var(--sky-2)}
+
+/* Footer */
+app-landing footer{background:var(--ink);color:#aaa9a4;padding:72px 0 28px}
+app-landing .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+app-landing .foot-brand .logo .pay{color:#fff}
+app-landing .foot-brand .logo .lite{color:var(--sky-2)}
+app-landing .foot-tagline{font-size:14px;color:#aaa9a4;margin:14px 0 22px;max-width:240px}
+app-landing .socials{display:flex;gap:8px}
+app-landing .socials a{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#aaa9a4;border:1px solid #3a3a38;transition:color .15s ease,border-color .15s ease,background .15s ease}
+app-landing .socials a:hover{color:#fff;border-color:#fff;background:#3a3a38}
+app-landing .foot-col h4{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:18px}
+app-landing .foot-col ul{display:flex;flex-direction:column;gap:12px}
+app-landing .foot-col a{font-size:14px;color:#aaa9a4;transition:color .15s;cursor:pointer}
+app-landing .foot-col a:hover{color:#fff}
+app-landing .foot-bottom{padding-top:24px;border-top:1px solid #3a3a38;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#888;flex-wrap:wrap;gap:12px}
+
+/* Responsive */
+@media (max-width:1024px){
+  app-landing h2{font-size:36px}
+  app-landing .h1{font-size:48px}
+  app-landing .ps-grid{gap:48px}
+  app-landing .feat-grid{grid-template-columns:repeat(2,1fr)}
+  app-landing .ind-grid{grid-template-columns:1fr;gap:20px}
+  app-landing .ind-card.featured{transform:none}
+  app-landing .ind-card.featured:hover{transform:translateY(-2px)}
+  app-landing .price-grid{grid-template-columns:1fr;gap:20px;max-width:480px;margin:0 auto}
+  app-landing .price-card.feat{transform:none}
+  app-landing .price-card.feat:hover{transform:translateY(-2px)}
+  app-landing .test-grid{grid-template-columns:1fr;gap:20px}
+  app-landing .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media (max-width:640px){
+  app-landing .section{padding:64px 0}
+  app-landing .container{padding:0 20px}
+  app-landing h2{font-size:30px}
+  app-landing .h1{font-size:36px;line-height:1.1}
+  app-landing .hero{padding:48px 0 72px}
+  app-landing .hero-sub{font-size:16px}
+  app-landing .nav-links,app-landing .nav-cta{display:none}
+  app-landing .hamburger{display:flex}
+  app-landing .phone{width:280px;transform:rotate(-1deg)}
+  app-landing .ps-grid{grid-template-columns:1fr;gap:48px}
+  app-landing .ps-col h2{font-size:28px}
+  app-landing .feat-grid{grid-template-columns:1fr}
+  app-landing .steps{grid-template-columns:1fr;gap:40px}
+  app-landing .steps::before{display:none}
+  app-landing .step .num{font-size:48px}
+  app-landing .logos-row{justify-content:center;gap:24px 20px}
+  app-landing .logos-row .lg{font-size:15px;flex-basis:calc(50% - 20px);text-align:center}
+  app-landing .test-grid{display:grid;grid-auto-flow:column;grid-auto-columns:88%;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding:4px 4px 16px;scrollbar-width:none;margin:0 -20px;padding-left:20px;padding-right:20px}
+  app-landing .test-grid::-webkit-scrollbar{display:none}
+  app-landing .test-card{scroll-snap-align:start}
+  app-landing .foot-grid{grid-template-columns:1fr;gap:32px;margin-bottom:32px}
+  app-landing .foot-bottom{justify-content:center;text-align:center;flex-direction:column}
+  app-landing .final-cta h2{font-size:32px}
+  app-landing .final-cta-btns .btn{width:100%;justify-content:center}
+  app-landing .cta-row .btn-primary{width:100%;justify-content:center}
+  app-landing .nav-inner{height:60px}
+}
