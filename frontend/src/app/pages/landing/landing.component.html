@@ -1,0 +1,457 @@
+<nav class="nav" [class.scrolled]="navScrolled" [class.menu-open]="mobileMenuOpen">
+  <div class="container nav-inner">
+    <a routerLink="/" class="logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="2" y="3" width="14" height="2" rx="1" fill="white" />
+          <rect x="2" y="8" width="14" height="2" rx="1" fill="white" />
+          <rect x="2" y="13" width="9" height="2" rx="1" fill="white" />
+          <circle cx="13.5" cy="14" r="1.4" fill="#185FA5" />
+        </svg></span><span class="logo-text"><span class="pay">Pay</span><span class="lite">Lite</span></span></a>
+    <div class="nav-links"><a (click)="scrollTo('features')">Features</a><a (click)="scrollTo('pricing')">Pricing</a><a
+        (click)="scrollTo('how')">How it works</a><a (click)="scrollTo('industries')">For Schools</a><a
+        (click)="scrollTo('industries')">For Clinics</a></div>
+    <div class="nav-cta"><a routerLink="/login" class="btn btn-ghost">Login</a><a routerLink="/login"
+        class="btn btn-primary">Start free</a></div>
+    <button class="hamburger" [class.open]="mobileMenuOpen" (click)="toggleMobileMenu()"><span></span></button>
+  </div>
+  <div class="mobile-menu"><a (click)="closeMobileMenu(); scrollTo('features')">Features</a><a
+      (click)="closeMobileMenu(); scrollTo('pricing')">Pricing</a><a (click)="closeMobileMenu(); scrollTo('how')">How it
+      works</a>
+    <div class="mobile-cta"><a routerLink="/login" class="btn btn-outline" (click)="closeMobileMenu()">Login</a><a
+        routerLink="/login" class="btn btn-primary" (click)="closeMobileMenu()">Start free</a></div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="reveal"><span class="pill"><span class="spark">&#10022;</span> Now with QR attendance check-in</span>
+    </div>
+    <h1 class="h1 reveal" data-stagger="1">Payroll and attendance<br />for small teams.<br /><span
+        class="blue">Done</span> in one tap.</h1>
+    <p class="hero-sub reveal" data-stagger="2">PayLite handles QR check-in, shift tracking, overtime, bonuses, PF, ESI
+      and payslips - automatically. Built for MSMEs, schools, hospitals and clinics under 30 employees.</p>
+    <div class="cta-row reveal" data-stagger="3"><a routerLink="/login" class="btn btn-primary btn-lg">Start free - no
+        card needed</a><a (click)="scrollTo('how')" class="btn-link">See how it works &rarr;</a></div>
+    <div class="social-bar reveal" data-stagger="4"><span>500+ businesses</span><span class="dot"></span><span>14
+        countries</span><span class="dot"></span><span>&#8377;0 to get started</span></div>
+    <div class="mockup-wrap reveal" data-stagger="5">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div>
+              <h4>Payroll</h4><span>April 2026 &middot; 8 employees</span>
+            </div>
+            <div class="dots"><i></i><i></i><i></i></div>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <div class="label">Total payout</div>
+              <div class="value">&#8377;3.42L</div>
+            </div>
+            <div class="metric ok">
+              <div class="label">Processed</div>
+              <div class="value">6</div>
+            </div>
+            <div class="metric warn">
+              <div class="label">Pending</div>
+              <div class="value">2</div>
+            </div>
+            <div class="metric flag">
+              <div class="label">Flagged</div>
+              <div class="value">1</div>
+            </div>
+          </div>
+          <div class="emp-list">
+            <div class="emp">
+              <div class="av" style="background:#185FA5">PM</div>
+              <div class="info">
+                <div class="name">Priya Menon</div>
+                <div class="role">Senior Teacher</div>
+              </div>
+              <div>
+                <div class="pay">&#8377;48,200</div><span class="status status-paid">Paid</span>
+              </div>
+            </div>
+            <div class="emp">
+              <div class="av" style="background:#3B6D11">RK</div>
+              <div class="info">
+                <div class="name">Rajesh Kumar</div>
+                <div class="role">Floor Supervisor</div>
+              </div>
+              <div>
+                <div class="pay">&#8377;32,500</div><span class="status status-pending">Pending</span>
+              </div>
+            </div>
+            <div class="emp">
+              <div class="av" style="background:#854F0B">AS</div>
+              <div class="info">
+                <div class="name">Anita Sharma</div>
+                <div class="role">Reception</div>
+              </div>
+              <div>
+                <div class="pay">&#8377;24,800</div><span class="status status-flag">Review</span>
+              </div>
+            </div>
+          </div>
+          <button class="run-btn">&#9889; Run all payroll</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="logos-band">
+  <div class="container">
+    <div class="logos-label reveal">Trusted by teams across India</div>
+    <div class="logos-row reveal" data-stagger="1"><span class="lg">Sunrise Clinic</span><span class="lg">Greenfield
+        School</span><span class="lg">Apex Manufacturing</span><span class="lg">CareFirst Hospital</span><span
+        class="lg">Nova Diagnostics</span></div>
+  </div>
+</section>
+
+<section class="section ps">
+  <div class="container">
+    <div class="ps-grid">
+      <div class="ps-col reveal">
+        <div class="ps-label bad">The old way</div>
+        <h2>Manual payroll<br />is costing you<br />more than time.</h2>
+        <ul class="ps-list" style="margin-top:28px">
+          <li class="ps-item"><span class="ps-icon bad">&times;</span>Hours spent on salary calculations every month
+          </li>
+          <li class="ps-item"><span class="ps-icon bad">&times;</span>Attendance disputes with no proof</li>
+          <li class="ps-item"><span class="ps-icon bad">&times;</span>Overtime miscalculated manually</li>
+          <li class="ps-item"><span class="ps-icon bad">&times;</span>Payslips shared days late or not at all</li>
+          <li class="ps-item"><span class="ps-icon bad">&times;</span>PF and ESI errors causing legal risk</li>
+          <li class="ps-item"><span class="ps-icon bad">&times;</span>No record of who came in and when</li>
+        </ul>
+      </div>
+      <div class="ps-col reveal" data-stagger="1">
+        <div class="ps-label good">The PayLite way</div>
+        <h2>Everything calculated.<br />Everything recorded.<br />One tap.</h2>
+        <ul class="ps-list" style="margin-top:28px">
+          <li class="ps-item"><span class="ps-icon good">&#10003;</span>QR check-in logs attendance automatically</li>
+          <li class="ps-item"><span class="ps-icon good">&#10003;</span>Shifts, overtime and late arrivals tracked</li>
+          <li class="ps-item"><span class="ps-icon good">&#10003;</span>Payroll calculated in under 30 seconds</li>
+          <li class="ps-item"><span class="ps-icon good">&#10003;</span>Payslips sent via WhatsApp instantly</li>
+          <li class="ps-item"><span class="ps-icon good">&#10003;</span>PF and ESI calculated to the rupee</li>
+          <li class="ps-item"><span class="ps-icon good">&#10003;</span>Full audit trail for every employee</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section features" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">Features</div>
+      <h2>Everything a small team needs.<br />Nothing they don't.</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal" data-stagger="1">
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <rect x="2.5" y="2.5" width="6" height="6" rx="1" />
+            <rect x="11.5" y="2.5" width="6" height="6" rx="1" />
+            <rect x="2.5" y="11.5" width="6" height="6" rx="1" />
+            <rect x="13" y="13" width="2" height="2" fill="currentColor" />
+          </svg></div>
+        <h3>QR Check-in</h3>
+        <p>Employees scan once at the door. Attendance logged automatically, no manual entry ever.</p>
+      </div>
+      <div class="feat-card reveal" data-stagger="2">
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <rect x="3.5" y="2" width="13" height="16" rx="2" />
+            <rect x="6" y="5" width="8" height="3" rx="0.5" fill="currentColor" opacity=".15" />
+          </svg></div>
+        <h3>One-tap payroll</h3>
+        <p>Every variable calculated - overtime, bonuses, PF, ESI, deductions. Run your entire team in 30 seconds.</p>
+      </div>
+      <div class="feat-card reveal" data-stagger="3">
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <circle cx="10" cy="10" r="7.5" />
+            <path d="M10 5.5V10l3 2" stroke-linecap="round" />
+          </svg></div>
+        <h3>Shift tracking</h3>
+        <p>Define morning and evening shifts. Late arrivals flagged. Overtime calculated to the minute.</p>
+      </div>
+      <div class="feat-card reveal" data-stagger="1">
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <path d="M5 2h7l3 3v13H5z" stroke-linejoin="round" />
+            <path d="M12 2v3h3" stroke-linejoin="round" />
+          </svg></div>
+        <h3>WhatsApp payslips</h3>
+        <p>Professional payslips generated and sent to each employee on WhatsApp the moment you're done.</p>
+      </div>
+
+      <div class="feat-card reveal" data-stagger="3">
+        <div class="feat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <path d="M10 2.5l6.5 2.5v5c0 4-3 7-6.5 8-3.5-1-6.5-4-6.5-8V5z" stroke-linejoin="round" />
+            <path d="M7.5 10l1.8 1.8 3.5-3.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg></div>
+        <h3>Full audit trail</h3>
+        <p>Every check-in timestamped. Every payroll recorded. Dispute-proof and compliance-ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section how" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">How it works</div>
+      <h2>Set up in minutes.<br />Run payroll in seconds.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal" data-stagger="1">
+        <div class="num">01</div>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <circle cx="9" cy="7.5" r="3.5" />
+            <path d="M3 18c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke-linecap="round" />
+            <line x1="17" y1="5" x2="17" y2="11" stroke-linecap="round" />
+            <line x1="14" y1="8" x2="20" y2="8" stroke-linecap="round" />
+          </svg></div>
+        <h3>Add your team</h3>
+        <p>Enter employee details, set their shift, salary, and PF/ESI status once.</p>
+      </div>
+      <div class="step reveal" data-stagger="2">
+        <div class="num">02</div>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <rect x="3" y="3" width="6" height="6" rx="1" />
+            <rect x="13" y="3" width="6" height="6" rx="1" />
+            <rect x="3" y="13" width="6" height="6" rx="1" />
+          </svg></div>
+        <h3>Attendance runs itself</h3>
+        <p>Print the QR code. Stick it at your entrance. Employees scan in and out every day.</p>
+      </div>
+      <div class="step reveal" data-stagger="3">
+        <div class="num">03</div>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M12 2L4 13h6l-1 7 8-11h-6z" />
+          </svg></div>
+        <h3>Tap to run payroll</h3>
+        <p>Open PayLite and tap once. Every salary calculated and payslips sent automatically.</p>
+      </div>
+    </div>
+    <div class="how-cta reveal">
+      <div class="how-cta-text">Ready to try it?</div><a routerLink="/login" class="btn btn-primary btn-lg">Start free -
+        takes 3 minutes</a>
+    </div>
+  </div>
+</section>
+
+<section class="section industries" id="industries">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Built for your industry</h2>
+      <p>Same powerful engine. Configured for how your team actually works.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card reveal" data-stagger="1">
+        <div class="ind-accent"></div>
+        <div class="ind-body">
+          <div class="ind-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
+              stroke-width="1.6" stroke-linejoin="round">
+              <path d="M11 4L1.5 8.5 11 13l9.5-4.5z" />
+              <path d="M5 10.5v4.5c0 1.5 3 3 6 3s6-1.5 6-3v-4.5" />
+            </svg></div>
+          <h3>Schools &amp; Institutes</h3>
+          <ul class="ind-points">
+            <li>Teacher shift management</li>
+            <li>Mid-month joining support</li>
+            <li>Leave and substitution tracking</li>
+            <li>Automated salary for teaching staff</li>
+          </ul><a href="#" class="ind-link">PayLite for Schools &rarr;</a>
+        </div>
+      </div>
+      <div class="ind-card featured reveal" data-stagger="2">
+        <div class="ind-accent"></div>
+        <div class="ind-body"><span class="badge">Most popular</span>
+          <div class="ind-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <rect x="8" y="2.5" width="6" height="17" rx="1" fill="currentColor" />
+              <rect x="2.5" y="8" width="17" height="6" rx="1" fill="currentColor" />
+            </svg></div>
+          <h3>Hospitals &amp; Clinics</h3>
+          <ul class="ind-points">
+            <li>Morning and evening shift support</li>
+            <li>Nurse and doctor roster tracking</li>
+            <li>Overtime for on-call hours</li>
+            <li>Compliance-ready payslips</li>
+          </ul><a href="#" class="ind-link">PayLite for Healthcare &rarr;</a>
+        </div>
+      </div>
+      <div class="ind-card reveal" data-stagger="3">
+        <div class="ind-accent"></div>
+        <div class="ind-body">
+          <div class="ind-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor"
+              stroke-width="1.6" stroke-linejoin="round">
+              <path d="M2.5 19V8l6-3v3l6-3v3l4.5-2v14z" />
+            </svg></div>
+          <h3>MSMEs &amp; Small Business</h3>
+          <ul class="ind-points">
+            <li>Factory floor shift tracking</li>
+            <li>Contract and daily wage support</li>
+            <li>Festival bonus management</li>
+            <li>PF and ESI auto-calculation</li>
+          </ul><a href="#" class="ind-link">PayLite for Business &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-label">Pricing</div>
+      <h2>One plan. Everything included.<br />No surprises.</h2>
+      <p>Flat monthly fee for your entire team. No per-employee charges.</p>
+    </div>
+    <div class="price-single-wrap">
+      <div class="price-card feat single reveal">
+        <span class="price-pop-badge">All-in-one</span>
+        <div class="price-name">PayLite for Teams</div>
+        <div class="price-row"><span class="price-amt">&#8377;499</span><span class="price-per">/month</span></div>
+        <div class="price-desc">For your entire team - up to 20 employees</div>
+        <div class="price-limit">Everything you need, nothing you don't</div>
+        <ul class="price-features">
+          <li class="price-feat"><span class="check">&#10003;</span>QR check-in attendance</li>
+          <li class="price-feat"><span class="check">&#10003;</span>One-tap payroll processing</li>
+          <li class="price-feat"><span class="check">&#10003;</span>PF and ESI auto-calculation</li>
+          <li class="price-feat"><span class="check">&#10003;</span>WhatsApp payslip delivery</li>
+          <li class="price-feat"><span class="check">&#10003;</span>Shift and overtime tracking</li>
+          <li class="price-feat"><span class="check">&#10003;</span>Leave management</li>
+          <li class="price-feat"><span class="check">&#10003;</span>Geo-fence attendance</li>
+          <li class="price-feat"><span class="check">&#10003;</span>Full audit trail</li>
+          <li class="price-feat"><span class="check">&#10003;</span>Excel and PDF exports</li>
+          <li class="price-feat"><span class="check">&#10003;</span>Priority support</li>
+        </ul>
+        <div class="price-cta"><a href="tel:+918160181558" class="btn btn-white btn-lg">&#9742; Call for demo</a></div>
+      </div>
+    </div>
+    <div class="price-foot reveal">Call us for a free demo. No commitment required.</div>
+  </div>
+</section>
+
+<section class="section test">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Trusted by teams who had<br />better things to do.</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal" data-stagger="1"><span class="test-quote-mark">"</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="test-q">We used to spend every month-end evening doing payroll. Now it takes 2 minutes. Our staff get
+          payslips on WhatsApp before they reach home.</p>
+        <div class="test-by">
+          <div class="test-av" style="background:#185FA5">PM</div>
+          <div>
+            <div class="name">Priya Menon</div>
+            <div class="role">Principal, Greenfield Academy</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal" data-stagger="2"><span class="test-quote-mark">"</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="test-q">The QR attendance alone was worth it. No more arguments about who came in which day.
+          Everything is recorded.</p>
+        <div class="test-by">
+          <div class="test-av" style="background:#3B6D11">RK</div>
+          <div>
+            <div class="name">Dr. Rajesh Khanna</div>
+            <div class="role">Director, CareFirst Clinic</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal" data-stagger="3"><span class="test-quote-mark">"</span>
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="test-q">I run a 12-person manufacturing unit. PayLite handles shifts, overtime and festival bonuses
+          automatically. My CA loves the payslip format.</p>
+        <div class="test-by">
+          <div class="test-av" style="background:#854F0B">SP</div>
+          <div>
+            <div class="name">Suresh Patil</div>
+            <div class="role">Owner, Apex Industries</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2>Questions we get a lot.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal" *ngFor="let faq of faqs; let i = index" [class.open]="openFaqIndex === i">
+        <button class="faq-q" (click)="toggleFaq(i)"><span>{{ faq.q }}</span><span class="faq-icon"></span></button>
+        <div class="faq-a" [style.max-height]="openFaqIndex === i ? '300px' : '0'">
+          <div class="faq-a-inner">{{ faq.a }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container final-cta-inner">
+    <h2 class="reveal">Your team works hard.<br />Payroll should not.</h2>
+    <p class="sub reveal" data-stagger="1">Join 500+ businesses who run payroll in under 30 seconds every month.</p>
+    <div class="final-cta-btns reveal" data-stagger="2"><a routerLink="/login" class="btn btn-white btn-lg">Start free
+        today</a><a routerLink="/login" class="btn btn-white-outline btn-lg">Book a demo</a></div>
+    <div class="final-cta-fine reveal" data-stagger="3">Call for demo: <a href="tel:+918160181558"
+        style="color:#fff;text-decoration:underline">+91 81601 81558</a> &middot; Setup in 3 minutes</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <rect x="2" y="3" width="14" height="2" rx="1" fill="white" />
+              <rect x="2" y="8" width="14" height="2" rx="1" fill="white" />
+              <rect x="2" y="13" width="9" height="2" rx="1" fill="white" />
+              <circle cx="13.5" cy="14" r="1.4" fill="#185FA5" />
+            </svg></span><span class="logo-text"><span class="payFooter">Pay</span><span class="lite">Lite</span></span>
+        </div>
+        <div class="foot-tagline">Payroll in one tap.</div>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a (click)="scrollTo('features')">Features</a></li>
+          <li><a (click)="scrollTo('pricing')">Pricing</a></li>
+          <li><a (click)="scrollTo('how')">How it works</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Industries</h4>
+        <ul>
+          <li><a href="#">For Schools</a></li>
+          <li><a href="#">For Hospitals</a></li>
+          <li><a href="#">For MSMEs</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom"><span>&copy; 2026 PayLite. All rights reserved.</span><span>Made with care for India's
+        small businesses.</span></div>
+  </div>
+</footer>
