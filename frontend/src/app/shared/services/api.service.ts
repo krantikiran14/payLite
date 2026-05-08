@@ -92,7 +92,33 @@ export class ApiService {
     return this.http.get<any>(`${this.baseUrl}/scans/employees`, { params: { token } });
   }
 
-  recordScan(data: { employeeId: string; type: 'IN' | 'OUT'; token: string; lat?: number; lon?: number }): Observable<any> {
+  registerDevice(data: { employeeId: string; pin: string; deviceId: string; token: string }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/scans/register-device`, data);
+  }
+
+  verifyDevice(data: { deviceId: string; token: string }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/scans/verify-device`, data);
+  }
+
+  recordScan(data: { employeeId: string; type: string; token: string; lat?: number; lon?: number; deviceId?: string }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/scans`, data);
+  }
+
+  // ── Self-Profile (device-auth) ──
+  getMyProfile(deviceId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/scans/my-profile`, {
+      headers: new HttpHeaders({ 'x-device-id': deviceId })
+    });
+  }
+
+  updateMyProfile(deviceId: string, data: { phone?: string; emergencyContact?: string; address?: string }): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/scans/my-profile`, data, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'x-device-id': deviceId })
+    });
+  }
+
+  // ── Admin: Reset PIN ──
+  resetEmployeePin(employeeId: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/scans/reset-pin/${employeeId}`, { headers: this.getHeaders() });
   }
 }

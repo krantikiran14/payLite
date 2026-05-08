@@ -8,5 +8,6 @@ export const routes: Routes = [
   { path: 'attendance/:month/:year', loadComponent: () => import('./pages/attendance/attendance.component').then(m => m.AttendanceComponent), canActivate: [authGuard] },
   { path: 'payroll/:month/:year', loadComponent: () => import('./pages/payroll/payroll.component').then(m => m.PayrollComponent), canActivate: [authGuard] },
   { path: 'check-in', loadComponent: () => import('./pages/check-in/check-in.component').then(m => m.CheckInComponent) },
+  { path: 'my-profile', loadComponent: () => import('./pages/my-profile/my-profile.component').then(m => m.MyProfileComponent) },
   { path: '**', redirectTo: '' },
 ];
