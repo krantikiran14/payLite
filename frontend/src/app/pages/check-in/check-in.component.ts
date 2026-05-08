@@ -62,37 +62,71 @@ import { ApiService } from '../../shared/services/api.service';
           }
 
           <!-- REGISTER DEVICE (first-time) -->
+          <!-- REGISTER / LOGIN MODES -->
           @else if (mode() === 'register') {
-            <h2 class="section-title">Register Your Device</h2>
-            <p class="instruction">Select your name and create a 4-digit PIN.<br/>This device will be linked to you.</p>
+            <!-- Toggle between login and register -->
+            <div class="auth-tabs">
+              <button [class.active]="authTab() === 'login'" (click)="authTab.set('login')">Login with PIN</button>
+              <button [class.active]="authTab() === 'register'" (click)="authTab.set('register')">New? Register</button>
+            </div>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Select Your Name</mat-label>
-              <mat-select [(ngModel)]="regEmployeeId">
-                @for (emp of employees(); track emp.id) {
-                  <mat-option [value]="emp.id">{{ emp.name }} — {{ emp.role }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+            @if (authTab() === 'login') {
+              <!-- LOGIN WITH PIN (returning employee) -->
+              <p class="instruction">Select your name and enter your 4-digit PIN</p>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Create 4-Digit PIN</mat-label>
-              <input matInput type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric"
-                     [(ngModel)]="regPin" placeholder="e.g. 1234">
-            </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Select Your Name</mat-label>
+                <mat-select [(ngModel)]="regEmployeeId">
+                  @for (emp of employees(); track emp.id) {
+                    <mat-option [value]="emp.id">{{ emp.name }} &mdash; {{ emp.role }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Confirm PIN</mat-label>
-              <input matInput type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric"
-                     [(ngModel)]="regPinConfirm" placeholder="Re-enter PIN">
-            </mat-form-field>
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Your 4-Digit PIN</mat-label>
+                <input matInput type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric"
+                       [(ngModel)]="regPin" placeholder="Enter PIN">
+              </mat-form-field>
 
-            <button mat-flat-button color="primary" class="full-btn"
-                    [disabled]="!regEmployeeId || regPin.length !== 4 || regPin !== regPinConfirm || submitting()"
-                    (click)="registerDevice()">
-              @if (submitting()) { <mat-spinner diameter="20"></mat-spinner> }
-              @else { Register Device }
-            </button>
+              <button mat-flat-button color="primary" class="full-btn"
+                      [disabled]="!regEmployeeId || regPin.length !== 4 || submitting()"
+                      (click)="loginWithPin()">
+                @if (submitting()) { <mat-spinner diameter="20"></mat-spinner> }
+                @else { Login }
+              </button>
+            } @else {
+              <!-- REGISTER (first-time employee) -->
+              <p class="instruction">First time? Select your name and create a 4-digit PIN.<br/>This device will be linked to you.</p>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Select Your Name</mat-label>
+                <mat-select [(ngModel)]="regEmployeeId">
+                  @for (emp of employees(); track emp.id) {
+                    <mat-option [value]="emp.id">{{ emp.name }} &mdash; {{ emp.role }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Create 4-Digit PIN</mat-label>
+                <input matInput type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric"
+                       [(ngModel)]="regPin" placeholder="e.g. 1234">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Confirm PIN</mat-label>
+                <input matInput type="password" maxlength="4" pattern="[0-9]*" inputmode="numeric"
+                       [(ngModel)]="regPinConfirm" placeholder="Re-enter PIN">
+              </mat-form-field>
+
+              <button mat-flat-button color="primary" class="full-btn"
+                      [disabled]="!regEmployeeId || regPin.length !== 4 || regPin !== regPinConfirm || submitting()"
+                      (click)="registerDevice()">
+                @if (submitting()) { <mat-spinner diameter="20"></mat-spinner> }
+                @else { Register Device }
+              </button>
+            }
           }
 
           <!-- PERSONAL DASHBOARD (device verified) -->
@@ -203,6 +237,16 @@ import { ApiService } from '../../shared/services/api.service';
     .time { font-size:1.4rem; font-weight:800; color:#185FA5; }
     .lunch-info { color:#ea580c; font-weight:600; font-size:.9rem; }
 
+    .auth-tabs {
+      display:flex; gap:4px; background:#f1f5f9; border-radius:10px; padding:4px; margin-bottom:20px;
+    }
+    .auth-tabs button {
+      flex:1; padding:10px; border:none; background:transparent; border-radius:8px;
+      font-weight:600; font-size:.85rem; color:#64748b; cursor:pointer; transition:all .2s;
+    }
+    .auth-tabs button.active {
+      background:#fff; color:#185FA5; box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    }
     .section-title { text-align:center; font-weight:700; margin-bottom:4px; }
     .instruction { text-align:center; color:#64748b; font-size:.88rem; margin-bottom:20px; line-height:1.5; }
     .full-width { width:100%; }
@@ -281,7 +325,8 @@ export class CheckInComponent implements OnInit {
   companyName = signal('');
   gpsEnabled = signal(true);
 
-  // Registration
+  // Registration / Login
+  authTab = signal<'login' | 'register'>('login');
   employees = signal<any[]>([]);
   regEmployeeId = '';
   regPin = '';
@@ -376,6 +421,34 @@ export class CheckInComponent implements OnInit {
       error: (err) => {
         this.submitting.set(false);
         this.snackBar.open(err?.error?.error || 'Registration failed', 'OK', { duration: 5000 });
+      }
+    });
+  }
+
+  loginWithPin() {
+    this.submitting.set(true);
+    // Uses the same register-device endpoint — backend verifies PIN for existing employees
+    this.api.registerDevice({
+      employeeId: this.regEmployeeId,
+      pin: this.regPin,
+      deviceId: this.deviceId,
+      token: this.token
+    }).subscribe({
+      next: () => {
+        this.api.verifyDevice({ deviceId: this.deviceId, token: this.token }).subscribe({
+          next: (res) => {
+            this.setDashboard(res);
+            this.submitting.set(false);
+          },
+          error: () => {
+            this.submitting.set(false);
+            this.errorMsg.set('Login succeeded but dashboard failed to load. Try again.');
+          }
+        });
+      },
+      error: (err) => {
+        this.submitting.set(false);
+        this.snackBar.open(err?.error?.error || 'Incorrect PIN or login failed', 'OK', { duration: 5000 });
       }
     });
   }
